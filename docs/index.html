@@ -87,7 +87,7 @@
         <div class="loading-init__status">献给你爱的TA</div>
     </div>
     <div class="stage-container remove">
-        <div class="canvas-container">
+        <div class="canvas-container" id="countdownDiv">
             <canvas id="trails-canvas"></canvas>
             <canvas id="main-canvas"></canvas>
             <canvas height="200" id="canvas-tips" style="border:1px solid #000;" width="500"></canvas>
@@ -183,7 +183,7 @@
 <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/MyMath.js'></script>
 <script src="./script.js"></script>
 <script>
-    var canvas = document.getElementById("countdownCanvas");
+    const canvas = document.getElementById("countdownCanvas");
 
     var canvasTips = document.getElementById("canvas-tips");
     var canvasTipsCtx = canvasTips.getContext("2d");
@@ -223,7 +223,9 @@
     }
 
     function updateCountdown(beijingTime) {
-        // 计算剩余时间
+        let textWidth;
+        let startX;
+// 计算剩余时间
         var timeRemaining = countdownEndTime - beijingTime.getTime();
         // 清空Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -234,7 +236,7 @@
         var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         // 如果倒计时结束，显示提示信息
-        if (timeRemaining <= 0) {
+        if (timeRemaining >= 0) {
             try {
                 clearInterval(countdownInterval);
             } catch (E) {
@@ -245,9 +247,15 @@
             } catch (e) {
 
             }
-            ctx.font = "40px 'Arial', sans-serif";
-            ctx.fillStyle = "#ff0043";
-            ctx.fillText("2024,新年快乐,元旦快乐!", 10, 80);
+            ctx.font = "bold 30px 'Arial', sans-serif";
+            ctx.fillStyle = "#c8161d";
+            let text = "❤️2024新年快乐❤️";
+            // 计算文本的宽度
+            textWidth = ctx.measureText(text).width;
+            // console.log("文字宽度" + textWidth)
+            // 计算居中文本开始的位置
+            startX = (canvas.width - textWidth) / 2;
+            ctx.fillText(text, startX, 80);
             startInterval();
         } else {
             var components = [];
@@ -278,9 +286,11 @@
             // ctx.fillStyle = `rgba(255, 255, 255, ${1 - progress})`; // White color with alpha (fade out)
 
             // 计算文本的宽度
-            var textWidth = ctx.measureText(formattedTime).width;
+            textWidth = ctx.measureText(formattedTime).width;
+            // console.log("文字宽度" + textWidth)
             // 计算居中文本开始的位置
-            var startX = (canvas.width - textWidth) / 2;
+            startX = (canvas.width - textWidth) / 2;
+            // console.log("开始位置" + startX)
             ctx.fillText(formattedTime, startX, 70);
         }
     }
