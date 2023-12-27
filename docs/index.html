@@ -23,7 +23,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 </head>
 <body>
-<audio id="music" src="bgm.mp3" preload="auto" loop volume="0.5"></audio>
+<audio autoplay id="music" loop preload="auto" src="bgm.mp3"></audio>
 <button id="playbtn" style="display: none" onclick="playBtnClick()"></button>
 <script>
     // if (-1 === document.cookie.indexOf('returning=true')) {
@@ -35,11 +35,11 @@
             text: '❤️一起看烟花叭❤️',
             type: 'success',
             buttons: {
-                confirm: 'ok!' // 自定义确认按钮文字
+                confirm: '❤️好呀️' // 自定义确认按钮文字
             }
         }).then(async (e) => {
             // document.getElementById("playbtn").click()
-            await bgmSoundManager.playAudio()
+            // await bgmSoundManager.playAudio()
         })
         document.cookie = 'returning=true'; // set cookie
 
@@ -163,7 +163,8 @@
                 </form>
 
                 <div class="credits">
-                    LOVE AND PEACE ❤️.
+                    <!--                    LOVE AND PEACE ❤️.-->
+                    ❤️维维新年快乐❤️
                 </div>
             </div>
         </div>
