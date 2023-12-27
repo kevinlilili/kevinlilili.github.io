@@ -23,7 +23,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 </head>
 <body>
-<audio autoplay id="music" loop preload="auto" src="bgm.mp3"></audio>
+<audio id="music" loop preload="auto" src="bgm.mp3"></audio>
 <button id="playbtn" style="display: none" onclick="playBtnClick()"></button>
 <script>
     // if (-1 === document.cookie.indexOf('returning=true')) {
@@ -39,7 +39,7 @@
             }
         }).then(async (e) => {
             // document.getElementById("playbtn").click()
-            // await bgmSoundManager.playAudio()
+            await bgmSoundManager.playAudio()
         })
         document.cookie = 'returning=true'; // set cookie
 
