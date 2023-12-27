@@ -236,7 +236,7 @@
         var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         // 如果倒计时结束，显示提示信息
-        if (timeRemaining >= 0) {
+        if (timeRemaining <= 0) {
             try {
                 clearInterval(countdownInterval);
             } catch (E) {
