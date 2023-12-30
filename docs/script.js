@@ -802,51 +802,55 @@ const shellTypes = {
 const shellNames = Object.keys(shellTypes);
 
 function init() {
-	// Remove loading state
-	document.querySelector('.loading-init').remove();
-	appNodes.stageContainer.classList.remove('remove');
+	setTimeout(()=>{
+		// Remove loading state
+		document.querySelector('.loading-init').remove();
+		appNodes.stageContainer.classList.remove('remove');
 
-	// Populate dropdowns
-	function setOptionsForSelect(node, options) {
-		node.innerHTML = options.reduce((acc, opt) => acc += `<option value="${opt.value}">${opt.label}</option>`, '');
-	}
+		// Populate dropdowns
+		function setOptionsForSelect(node, options) {
+			node.innerHTML = options.reduce((acc, opt) => acc += `<option value="${opt.value}">${opt.label}</option>`, '');
+		}
 
-	// shell type
-	let options = '';
-	shellNames.forEach(opt => options += `<option value="${opt}">${opt}</option>`);
-	appNodes.shellType.innerHTML = options;
-	// shell size
-	options = '';
-	['3"', '4"', '6"', '8"', '12"', '16"'].forEach((opt, i) => options += `<option value="${i}">${opt}</option>`);
-	appNodes.shellSize.innerHTML = options;
+		// shell type
+		let options = '';
+		shellNames.forEach(opt => options += `<option value="${opt}">${opt}</option>`);
+		appNodes.shellType.innerHTML = options;
+		// shell size
+		options = '';
+		['3"', '4"', '6"', '8"', '12"', '16"'].forEach((opt, i) => options += `<option value="${i}">${opt}</option>`);
+		appNodes.shellSize.innerHTML = options;
 
-	setOptionsForSelect(appNodes.quality, [
-		{ label: '低', value: QUALITY_LOW },
-		{ label: '正常', value: QUALITY_NORMAL },
-		{ label: '高', value: QUALITY_HIGH }
-	]);
+		setOptionsForSelect(appNodes.quality, [
+			{ label: '低', value: QUALITY_LOW },
+			{ label: '正常', value: QUALITY_NORMAL },
+			{ label: '高', value: QUALITY_HIGH }
+		]);
 
-	setOptionsForSelect(appNodes.skyLighting, [
-		{ label: '无', value: SKY_LIGHT_NONE },
-		{ label: '暗淡', value: SKY_LIGHT_DIM },
-		{ label: '正常', value: SKY_LIGHT_NORMAL }
-	]);
+		setOptionsForSelect(appNodes.skyLighting, [
+			{ label: '无', value: SKY_LIGHT_NONE },
+			{ label: '暗淡', value: SKY_LIGHT_DIM },
+			{ label: '正常', value: SKY_LIGHT_NORMAL }
+		]);
 
-	// 0.9 is mobile default
-	setOptionsForSelect(
-		appNodes.scaleFactor,
-		[0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0]
-		.map(value => ({ value: value.toFixed(2), label: `${value*100}%` }))
-	);
+		// 0.9 is mobile default
+		setOptionsForSelect(
+			appNodes.scaleFactor,
+			[0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0]
+				.map(value => ({ value: value.toFixed(2), label: `${value*100}%` }))
+		);
 
-	// Begin simulation
-	togglePause(false);
+		// Begin simulation
+		togglePause(false);
 
-	// initial render
-	renderApp(store.state);
+		// initial render
+		renderApp(store.state);
 
-	// Apply initial config
-	configDidUpdate();
+		// Apply initial config
+		configDidUpdate();
+		showHello();
+	},1500)
+
 }
 
 
@@ -1199,6 +1203,17 @@ function handleResize() {
 	const scaleFactor = scaleFactorSelector();
 	stageW = containerW / scaleFactor;
 	stageH = containerH / scaleFactor;
+	var particleCanvas = document.getElementById("particle-canvas");
+	particleCanvas.width = containerW;
+	particleCanvas.height = containerH;
+
+	var countdownCanvas = document.getElementById("countdownCanvas");
+	countdownCanvas.width = containerW;
+	countdownCanvas.height = containerH
+
+	var canvasTips = document.getElementById("canvas-tips");
+	canvasTips.width = containerW;
+	canvasTips.height = containerH
 }
 
 // Compute initial dimensions
@@ -2327,7 +2342,9 @@ const bgmSoundManager = {
 	},
 
 	pauseAll() {
-		this.ctx.suspend();
+		setTimeout(async ()=>{
+			await this.ctx.suspend();
+		},250)
 	},
 
 	resumeAll() {
@@ -2382,7 +2399,6 @@ const bgmSoundManager = {
 	async playAudio() {
 		const audioBuffer =  await this.loadAudio();
 		this.playSound(audioBuffer);
-		this.load=true;
 	}
 };
 
@@ -2412,6 +2428,6 @@ if (IS_HEADER) {
 				return Promise.reject(reason);
 			}
 		);
-		bgmSoundManager.loadAudio()
+		bgmSoundManager.playAudio()
 	}, 0);
 }

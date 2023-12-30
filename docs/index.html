@@ -2,55 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>❤️新年快乐❤️</title>
-    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
-    <meta content="yes" name="mobile-web-app-capable">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="#000000" name="theme-color">
-    <link href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png" rel="shortcut icon"
-          type="image/png">
-    <link href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png" rel="icon"
-          type="image/png">
-    <link href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png"
-          rel="apple-touch-icon-precomposed">
-    <meta content="#000000" name="msapplication-TileColor">
-    <meta content="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png"
-          name="msapplication-TileImage">
+    <title>❤️❤️❤️新年快乐❤️❤️❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <link rel="shortcut icon" type="image/png"
+          href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png">
+    <link rel="icon" type="image/png"
+          href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage"
+          content="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/firework-burst-icon-v2.png">
     <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet">
-    <link href="./style.css" rel="stylesheet">
-    <!--    <script>LA.init({id: "JZoZ8aGfV9rGSdKm",ck: "JZoZ8aGfV9rGSdKm"})</script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <!--<script>LA.init({id: "JZoZ8aGfV9rGSdKm",ck: "JZoZ8aGfV9rGSdKm"})</script>-->
     <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 </head>
 <body>
-<audio id="music" loop preload="auto" src="bgm.mp3"></audio>
-<button id="playbtn" style="display: none" onclick="playBtnClick()"></button>
 <script>
     // if (-1 === document.cookie.indexOf('returning=true')) {
 
-    // setTimeout("showHello()",2000);
     async function showHello() {
         swal({
             title: '❤️新年快乐❤️',
             text: '❤️一起看烟花叭❤️',
             type: 'success',
             buttons: {
-                confirm: '❤️好呀️' // 自定义确认按钮文字
+                confirm: '❤️好呀' // 自定义确认按钮文字
             }
         }).then(async (e) => {
-            // document.getElementById("playbtn").click()
-            await bgmSoundManager.playAudio()
+            await bgmSoundManager.resumeAll()
+            seqSmallBarrage()
         })
         document.cookie = 'returning=true'; // set cookie
 
     }
-
-    function playBtnClick() {
-        var music = document.getElementById('music');
-        music.play();
-    }
-
-    showHello();
 
     // }
 
@@ -87,26 +77,26 @@
         <div class="loading-init__status">献给你爱的TA</div>
     </div>
     <div class="stage-container remove">
-        <div class="canvas-container" id="countdownDiv">
+        <div class="canvas-container">
             <canvas id="trails-canvas"></canvas>
             <canvas id="main-canvas"></canvas>
-            <canvas height="200" id="canvas-tips" style="border:1px solid #000;" width="1080"></canvas>
-            <canvas height="200" id="countdownCanvas" style="border: 1px solid #000; transition: color 0.5s ease;"
-                    width="1080"></canvas>
+            <canvas id="canvas-tips" style="border:1px solid #000;"></canvas>
+            <canvas id="countdownCanvas" style="border: 1px solid #000; transition: color 0.5s ease;"></canvas>
+            <canvas id="particle-canvas"></canvas>
         </div>
         <div class="controls">
             <div class="btn pause-btn">
-                <svg fill="white" height="24" width="24">
+                <svg fill="white" width="24" height="24">
                     <use href="#icon-pause" xlink:href="#icon-pause"></use>
                 </svg>
             </div>
             <div class="btn sound-btn">
-                <svg fill="white" height="24" width="24">
+                <svg fill="white" width="24" height="24">
                     <use href="#icon-sound-off" xlink:href="#icon-sound-off"></use>
                 </svg>
             </div>
             <div class="btn settings-btn">
-                <svg fill="white" height="24" width="24">
+                <svg fill="white" width="24" height="24">
                     <use href="#icon-settings" xlink:href="#icon-settings"></use>
                 </svg>
             </div>
@@ -114,7 +104,7 @@
         <div class="menu hide">
             <div class="menu__inner-wrap">
                 <div class="btn btn--bright close-menu-btn">
-                    <svg fill="white" height="24" width="24">
+                    <svg fill="white" width="24" height="24">
                         <use href="#icon-close" xlink:href="#icon-close"></use>
                     </svg>
                 </div>
@@ -163,7 +153,7 @@
                 </form>
 
                 <div class="credits">
-                    <!--                    LOVE AND PEACE ❤️.-->
+                    <!--					LOVE AND PEACE ❤.-->
                     ❤️维维新年快乐❤️
                 </div>
             </div>
@@ -174,7 +164,7 @@
         <div class="help-modal__dialog">
             <div class="help-modal__header"></div>
             <div class="help-modal__body"></div>
-            <button class="help-modal__close-btn" type="button">关闭</button>
+            <button type="button" class="help-modal__close-btn">关闭</button>
         </div>
     </div>
 </div>
@@ -184,19 +174,29 @@
 <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/MyMath.js'></script>
 <script src="./script.js"></script>
 <script>
-    const canvas = document.getElementById("countdownCanvas");
+    var canvas = document.getElementById("countdownCanvas");
+    var ctx = canvas.getContext("2d");
 
     var canvasTips = document.getElementById("canvas-tips");
     var canvasTipsCtx = canvasTips.getContext("2d");
-    var ctx = canvas.getContext("2d");
 
     // 设置倒计时结束的时间为2024年1月1日00:00:00
     var countdownEndTime = new Date("2024-01-01T00:00:00").getTime();
     var trendyColors = ['#FF6347', '#87CEFA', '#FFD700', '#FF69B4', '#00FF7F', '#40E0D0', '#FFA07A', '#8A2BE2', '#FF8C00', '#4B0082'];
 
     function getRandomColor() {
-        var randomIndex = Math.floor(Math.random() * trendyColors.length);
-        return trendyColors[randomIndex];
+        // var randomIndex = Math.floor(Math.random() * trendyColors.length);
+        // return trendyColors[randomIndex];
+
+        // 生成一个随机的 R、G、B 分量
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+
+        // 将 R、G、B 分量组合成十六进制颜色字符串
+        var color = "#" + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+
+        return color;
     }
 
     let count = 0;  // 用于计数执行次数
@@ -204,10 +204,7 @@
     let intervalId;
 
     function myFunction() {
-        count++;
-
-        // 检查是否执行了一百次，如果是，则清除 setInterval
-        if (count >= 50) {
+        if (count++ >= 100) {
             try {
                 clearInterval(intervalId);
             } catch (e) {
@@ -220,13 +217,11 @@
 
     function startInterval() {
         // 设置每隔一秒钟执行一次 myFunction 方法，并将返回的 interval ID 存储在变量中
-        intervalId = setInterval(myFunction, 1000);
+        intervalId = setInterval(myFunction, 3000);
     }
 
     function updateCountdown(beijingTime) {
-        let textWidth;
-        let startX;
-// 计算剩余时间
+        // 计算剩余时间
         var timeRemaining = countdownEndTime - beijingTime.getTime();
         // 清空Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -236,6 +231,12 @@
         var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, getRandomColor());
+        gradient.addColorStop(0.25, getRandomColor());
+        gradient.addColorStop(0.5, getRandomColor());
+        gradient.addColorStop(0.75, getRandomColor());
+        gradient.addColorStop(1, getRandomColor());
         // 如果倒计时结束，显示提示信息
         if (timeRemaining <= 0) {
             try {
@@ -248,19 +249,37 @@
             } catch (e) {
 
             }
-            ctx.font = "bold 30px 'Arial', sans-serif";
+            // 使用过渡颜色
+            ctx.font = "bolder 30px 'Arial', sans-serif";
+            // ctx.fillStyle = gradient;
             ctx.fillStyle = "#c8161d";
-            let text = "❤️2024 新年快乐❤️";
-            // 计算文本的宽度
-            textWidth = ctx.measureText(text).width;
-            // console.log("文字宽度" + textWidth)
-            // 计算居中文本开始的位置
-            startX = (canvas.width - textWidth) / 2;
-            ctx.fillText(text, startX, 80);
+            var text = "2024 新元伊始 诸事顺利❤️";
+
+            // 初始字体大小
+            var fontSize = 28;
+
+            // 设置字体样式
+            ctx.font = "bolder " + fontSize + 'px Arial';
+
+            // 测量文本宽度
+            var textWidth = ctx.measureText(text).width;
+
+            // 如果文本宽度超出Canvas宽度，缩小字体大小
+            // while (textWidth > canvas.width) {
+            //     fontSize--;
+            //     ctx.font = fontSize + 'px Arial';
+            //     textWidth = ctx.measureText(text).width;
+            // }
+
+            // 计算文本的起始位置
+            var x = (canvas.width - textWidth) / 2;
+
+            ctx.fillText(text, x, 76);
+
             startInterval();
         } else {
             var components = [];
-            components.push("新年倒计时：")
+            components.push("新年倒计时: ")
             if (days > 0) {
                 components.push(days + '天 ');
                 components.push(hours + '小时 ')
@@ -277,22 +296,30 @@
                 components.push(seconds + '秒')
             }
             var formattedTime = components.join(' ');
-            var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-            gradient.addColorStop(0, getRandomColor());
-            gradient.addColorStop(0.5, getRandomColor());
-            gradient.addColorStop(1, getRandomColor());
+
             // 使用过渡颜色
             ctx.font = "18px 'Arial', sans-serif";
             ctx.fillStyle = gradient;
-            // ctx.fillStyle = `rgba(255, 255, 255, ${1 - progress})`; // White color with alpha (fade out)
+            // 初始字体大小
+            var fontSize = 20;
 
-            // 计算文本的宽度
-            textWidth = ctx.measureText(formattedTime).width;
-            // console.log("文字宽度" + textWidth)
-            // 计算居中文本开始的位置
-            startX = (canvas.width - textWidth) / 2;
-            // console.log("开始位置" + startX)
-            ctx.fillText(formattedTime, startX, 70);
+            // 设置字体样式
+            ctx.font = "bolder " + fontSize + 'px Arial';
+
+            // 测量文本宽度
+            var textWidth = ctx.measureText(formattedTime).width;
+
+            // 如果文本宽度超出Canvas宽度，缩小字体大小
+            // while (textWidth > canvas.width) {
+            // 	fontSize--;
+            // 	ctx.font = fontSize + 'px Arial';
+            // 	textWidth = ctx.measureText(formattedTime).width;
+            // }
+
+            // 计算文本的起始位置
+            var x = (canvas.width - textWidth) / 2;
+
+            ctx.fillText(formattedTime, x, 70);
         }
     }
 
@@ -322,13 +349,85 @@
             updateCountdown(beijingTime);
         }, 1000 * 60 * 2);
     })();
+    // 展示提示
+    // showTips();
 
 
-    // 每秒更新一次倒计时和北京时间
-    canvasTipsCtx.font = "18px 'Arial', sans-serif";
-    canvasTipsCtx.fillStyle = "#2E8B57"; // SeaGreen color
-    // canvasTipsCtx.fillText("不停点击屏幕即可绽放不同的烟花~", 10, 150);
+    var particleCanvas = document.getElementById("particle-canvas");
+    var context = particleCanvas.getContext("2d");
 
+    // 创建粒子
+    var particles = [];
+    for (var i = 0; i < 20; i++) {
+        var particle = {
+            x: Math.random() * particleCanvas.width,
+            y: Math.random() * particleCanvas.height,
+            vx: Math.random() * 2 - 1,
+            vy: Math.random() * 2 - 1,
+            radius: Math.random() * 5.0,
+            color: getRandomColor(),
+        };
+        particles.push(particle);
+    }
+
+    // 绘制粒子
+    function draw() {
+        context.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+
+        for (var i = 0; i < particles.length; i++) {
+            var particle = particles[i];
+
+            // 更新粒子的位置
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+
+            // 检查粒子是否超出画布
+            if (particle.x < 0 || particle.x > particleCanvas.width) {
+                particle.vx = -particle.vx;
+            }
+            if (particle.y < 0 || particle.y > particleCanvas.height) {
+                particle.vy = -particle.vy;
+            }
+
+            // 绘制粒子
+            context.fillStyle = particle.color;
+            context.beginPath();
+            context.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+            context.fill();
+        }
+
+        // 重复绘制
+        requestAnimationFrame(draw);
+    }
+
+    // 初始绘制
+    draw();
+
+    function showTips() {
+        var textTips = "不停点击屏幕即可绽放不同的烟花~";
+
+        var fontSize = 30;
+
+        // 设置字体样式
+        canvasTipsCtx.font = fontSize + 'px Arial';
+
+        // 测量文本宽度
+        var textWidth = canvasTipsCtx.measureText(textTips).width;
+
+        // 如果文本宽度超出Canvas宽度，缩小字体大小
+        while (textWidth > canvas.width) {
+            fontSize--;
+            canvasTipsCtx.font = fontSize + 'px Arial';
+            textWidth = canvasTipsCtx.measureText(textTips).width;
+        }
+
+        // 计算文本的起始位置
+        var x = (canvasTips.width - textWidth) / 2;
+
+
+        canvasTipsCtx.fillStyle = "#2E8B57"; // SeaGreen color
+        canvasTipsCtx.fillText(textTips, x, 150);
+    }
 </script>
 
 </body>
