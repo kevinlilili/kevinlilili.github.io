@@ -310,11 +310,11 @@
             var textWidth = ctx.measureText(formattedTime).width;
 
             // 如果文本宽度超出Canvas宽度，缩小字体大小
-            // while (textWidth > canvas.width) {
-            // 	fontSize--;
-            // 	ctx.font = fontSize + 'px Arial';
-            // 	textWidth = ctx.measureText(formattedTime).width;
-            // }
+            while (textWidth > canvas.width) {
+                fontSize--;
+                ctx.font = "bolder " + fontSize + 'px Arial';
+                textWidth = ctx.measureText(formattedTime).width;
+            }
 
             // 计算文本的起始位置
             var x = (canvas.width - textWidth) / 2;
